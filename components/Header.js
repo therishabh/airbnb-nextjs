@@ -18,9 +18,15 @@ const Header = () => {
   const [noOfGuest, setNoOfGuest] = useState(1);
 
   const handleSelect = (ranges) => {
-    console.log(ranges);
     setStartDate(ranges.selection.startDate)
     setEndDate(ranges.selection.endDate)
+  }
+
+  const handleCancel = () => {
+    setSearchInput("");
+    setNoOfGuest(1);
+    setStartDate(new Date());
+    setEndDate(new Date());
   }
 
   const selectionRange = {
@@ -80,7 +86,7 @@ const Header = () => {
             </div>
           </div>
           <div className="flex justify-around">
-            <button className="cursor-pointer text-gray-400 font-bold py-3 px-9">Cancel</button>
+            <button className="cursor-pointer text-gray-400 font-bold py-3 px-9" onClick={handleCancel}>Cancel</button>
             <button className="cursor-pointer text-red-500 font-bold py-3 px-9">Submit</button>
           </div>
         </div>
