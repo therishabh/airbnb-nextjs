@@ -80,7 +80,7 @@ const Header = () => {
             </div>
           </div>
           <div className="flex justify-around">
-            <button className="cursor-pointer text-gray-400 font-bold py-3 px-9 flex-grow">Cancel</button>
+            <button className="cursor-pointer text-gray-400 font-bold py-3 px-9">Cancel</button>
             <button className="cursor-pointer text-red-500 font-bold py-3 px-9">Submit</button>
           </div>
         </div>
