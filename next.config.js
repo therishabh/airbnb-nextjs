@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+  tls: { 
+    rejectUnauthorized: false 
+},
   images : {
     remotePatterns: [
       {
@@ -8,9 +11,13 @@ const nextConfig = {
         hostname: 'a0.muscache.com',
         port: '',
         pathname: '/im/pictures/**',
+      },{
+        protocol: 'https',
+        hostname: 'www.jsonkeeper.com',
+        port: '',
       },
     ],
-    domains : ["links.papareact.com"]
+    domains : ["links.papareact.com","www.jsonkeeper.com"]
   }
 }
 

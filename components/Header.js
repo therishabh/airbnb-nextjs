@@ -10,12 +10,15 @@ import {
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
+import { useRouter } from "next/router";
 
-const Header = () => {
+const Header = ({placeholder}) => {
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [noOfGuest, setNoOfGuest] = useState(1);
+  const router = useRouter();
+
 
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate)
@@ -29,6 +32,18 @@ const Header = () => {
     setEndDate(new Date());
   }
 
+  const handleSearch = () => {
+    router.push({
+      pathname : '/search',
+      query : {
+        location : searchInput,
+        startDate : startDate.toISOString(),
+        endDate : endDate.toISOString(),
+        noOfGuest : noOfGuest
+      }
+    })
+  }
+
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
@@ -38,7 +53,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10">
       {/* Left */}
-      <div className="relative flex items-center h-10 cursor-pointer my-auto">
+      <div onClick={() => router.push('/')} className="relative flex items-center h-10 cursor-pointer my-auto">
         <Image
           src="./images/logo.svg"
           layout="fill"
@@ -54,7 +69,7 @@ const Header = () => {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           type="text"
-          placeholder="Start your search"
+          placeholder={placeholder || "Start your search"}
           className="pl-5 pr-3 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400 w-full"
         />
         <MagnifyingGlassIcon className="h-8 bg-red-400 cursor-pointer p-2 text-white rounded-full md:inline-flex" />
@@ -87,7 +102,7 @@ const Header = () => {
           </div>
           <div className="flex justify-around">
             <button className="cursor-pointer text-gray-400 font-bold py-3 px-9" onClick={handleCancel}>Cancel</button>
-            <button className="cursor-pointer text-red-500 font-bold py-3 px-9">Submit</button>
+            <button onClick={handleSearch} className="cursor-pointer text-red-500 font-bold py-3 px-9">Submit</button>
           </div>
         </div>
       )}
